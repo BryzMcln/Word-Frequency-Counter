@@ -1,8 +1,7 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { //Check muna kung na submit na
-    // Get the text input from the form
-    $text = $_POST["text"];
 
+function wordFrequencyCounter ($text, $order, $limit) {
+    
     // Tokenize the text into words
     $words = str_word_count($text, 1);
 
@@ -31,30 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //Check muna kung na submit na
     $wordFrequencies = array_count_values($filteredWords);
 
     // Sort the word frequencies based on the selected sorting order
-    $sortOrder = $_POST["sort"];
-    if ($sortOrder == "asc") {
+    if ($order == "asc") {
         asort($wordFrequencies);
     } else {
         arsort($wordFrequencies);
     }
 
-    // Limit the number of words to display based on user input
-    $limit = isset($_POST["limit"]) ? (int)$_POST["limit"] : count($wordFrequencies);
+    $wordFrequencies = array_slice($wordFrequencies, 0, $limit, true);
+    
+    return $wordFrequencies;
 
-    // Display the word frequencies
-    echo "<h2>Word Frequencies</h2>";
-    echo "<table>";
-    echo "<tr><th>Word</th><th>Frequency</th></tr>";
-    foreach ($wordFrequencies as $word => $frequency) {
-        echo "<tr><td>$word</td><td>$frequency</td></tr>";
-    }
-    echo "</table>";
-} else {
-
-    header("Location: index.php");
-    exit;
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+    $text = $_POST["text"];
+    $order = $_POST["sort"];
+    $limit = $_POST['limit'];
+}
+
+$wordFrequencies = wordFrequencyCounter($text, $order, $limit);
+
+
+    
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +63,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //Check muna kung na submit na
 
 </head>
 <body>
+    <?php
+   // Display the word frequencies
+echo "<h2>Word Frequencies</h2>";
+echo "<table>";
+echo "<tr><th>Word</th><th>Frequency</th></tr>";
+
+// Check if $wordFrequencies is not empty
+if (!empty($wordFrequencies)) {
+    foreach ($wordFrequencies as $word => $frequency) {
+        echo "<tr><td>$word</td><td>$frequency</td></tr>";
+    }
+    echo "</table>";
+} else {
+    // Redirect to index.php if $wordFrequencies is empty
+    header("Location: index.php");
+    exit;
+}
+
+?>
     <button ><a href="index.php">Back</a></button>
 </body>
 </html>
