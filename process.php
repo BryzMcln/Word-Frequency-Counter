@@ -16,8 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //Check muna kung na submit na
      "on","off","over","under","again","further","then","once","here","there","when","where","why","how","all",
      "any","both","each","few","more","most","other","some","such","no","nor","not","only","own","same","so","than",
      "too","very","can","will","just","don","should","may","now","receive","received","well","much","buy","also"); 
-    // Dagdagan mo nalang pre hehehe
+
+     //Lower case all words
+     $words = array_map(function ($word) {
+        return strtolower($word);
+    }, $words);
+    
+    //Filter Stop Words
     $filteredWords = array_diff($words, $stopWords);
+
+   
 
     // Calculate word frequencies
     $wordFrequencies = array_count_values($filteredWords);
