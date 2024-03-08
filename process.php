@@ -24,8 +24,6 @@ function wordFrequencyCounter ($text, $order, $limit) {
     //Filter Stop Words
     $filteredWords = array_diff($words, $stopWords);
 
-   
-
     // Calculate word frequencies
     $wordFrequencies = array_count_values($filteredWords);
 
@@ -39,19 +37,16 @@ function wordFrequencyCounter ($text, $order, $limit) {
     $wordFrequencies = array_slice($wordFrequencies, 0, $limit, true);
     
     return $wordFrequencies;
+    }
 
-}
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        $text = $_POST["text"];
+        $order = $_POST["sort"];
+        $limit = $_POST['limit'];
+    }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-    $text = $_POST["text"];
-    $order = $_POST["sort"];
-    $limit = $_POST['limit'];
-}
+    $wordFrequencies = wordFrequencyCounter($text, $order, $limit);
 
-$wordFrequencies = wordFrequencyCounter($text, $order, $limit);
-
-
-    
 ?>
 
 <!DOCTYPE html>
@@ -65,23 +60,23 @@ $wordFrequencies = wordFrequencyCounter($text, $order, $limit);
 <body>
     <?php
    // Display the word frequencies
-echo "<h2>Word Frequencies</h2>";
-echo "<table>";
-echo "<tr><th>Word</th><th>Frequency</th></tr>";
+    echo "<h2>Word Frequencies</h2>";
+    echo "<table>";
+    echo "<tr><th>Word</th><th>Frequency</th></tr>";
 
-// Check if $wordFrequencies is not empty
-if (!empty($wordFrequencies)) {
-    foreach ($wordFrequencies as $word => $frequency) {
-        echo "<tr><td>$word</td><td>$frequency</td></tr>";
+    // Check if $wordFrequencies is not empty
+    if (!empty($wordFrequencies)) {
+        foreach ($wordFrequencies as $word => $frequency) {
+            echo "<tr><td>$word</td><td>$frequency</td></tr>";
+        }
+        echo "</table>";
+    } else {
+        // Redirect to index.php if $wordFrequencies is empty
+        header("Location: index.php");
+        exit;
     }
-    echo "</table>";
-} else {
-    // Redirect to index.php if $wordFrequencies is empty
-    header("Location: index.php");
-    exit;
-}
 
-?>
+    ?>
     <button ><a href="index.php">Back</a></button>
 </body>
 </html>
