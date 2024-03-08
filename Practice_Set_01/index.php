@@ -3,19 +3,19 @@
 /**
  * Calculate the total price of items in a shopping cart
  * @param  array $items - an associative array containing items
- * Prints the total price of the items 
+ * @return float returns total price of the items 
  */ 
 
 
 
-function calcItems($items)
-{
+function calcItems(array $items): float{
     $total = 0;
     foreach ($items as $item) {
      $total += $item['price'];
     }
-    echo "Total price: $" . $total;
+    return $total;
 }
+    
 
 $items = [
     ['name' => 'Oven with Aircon', 'price' => 10],
@@ -28,7 +28,8 @@ foreach ($items as $item) {
     echo $item['name'] . ": $" . $item['price'] . "<br>";
 }
 echo"<br>";
-calcItems($items);
+$totalPrice = calcItems($items);
+echo "Total Price: " . $totalPrice;
 echo"<br>";
 echo"<br>";
 
@@ -64,7 +65,7 @@ echo"<br>";
  * @param int $number - number to be checked.
  * @return string result if the number is even or odd.
  */
-function numCheckOddEven($number) {
+function numCheckOddEven(int $number): string {
     if ($number % 2 == 0) {
         return "The number " . $number . " is even.";
     } else {
