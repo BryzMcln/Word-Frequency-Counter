@@ -18,14 +18,16 @@ function calcItems($items)
 }
 
 $items = [
-    ['name' => 'Widget A', 'price' => 10],
-    ['name' => 'Widget B', 'price' => 15],
-    ['name' => 'Widget C', 'price' => 20],
+    ['name' => 'Oven with Aircon', 'price' => 10],
+    ['name' => 'Toaster with legal seperation', 'price' => 15],
+    ['name' => 'Ref with free wifi', 'price' => 20],
    ];
+
 echo "<h4>Calculate Items</h4>";
-foreach($items as $name => $price) {
-    echo"$name : $price<br>";
+foreach ($items as $item) {
+    echo $item['name'] . ": $" . $item['price'] . "<br>";
 }
+echo"<br>";
 calcItems($items);
 echo"<br>";
 echo"<br>";
