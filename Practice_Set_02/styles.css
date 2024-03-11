@@ -24,15 +24,16 @@ label {
     margin-bottom: 5px;
 }
 
+/* Style inputs */
 textarea,
 select,
 input[type="number"] {
-    width: calc(100% - 22px); /* Adjusted width to account for padding and border */
+    width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    box-sizing: border-box; /* Include padding and border in width calculation */
+    box-sizing: border-box;
 }
 
 
