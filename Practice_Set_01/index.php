@@ -1,12 +1,9 @@
 <?php
-
 /**
  * Calculate the total price of items in a shopping cart
  * @param  array $items - an associative array containing items
  * @return float returns total price of the items 
  */ 
-
-
 
 function calcItems(array $items): float{
     $total = 0;
@@ -16,7 +13,6 @@ function calcItems(array $items): float{
     return $total;
 }
     
-
 $items = [
     ['name' => 'Oven with Aircon', 'price' => 10],
     ['name' => 'Toaster with legal seperation', 'price' => 15],
@@ -32,8 +28,6 @@ $totalPrice = calcItems($items);
 echo "Total Price: " . $totalPrice;
 echo"<br>";
 echo"<br>";
-
-
 
 /**
  * Perform a series of string manipulations on the input string.
@@ -76,6 +70,4 @@ function numCheckOddEven(int $number): string {
 echo "<h4>Check Number if Odd or Even</h4>";
 $number = 42;
 echo numCheckOddEven($number);
-
-
 ?>
